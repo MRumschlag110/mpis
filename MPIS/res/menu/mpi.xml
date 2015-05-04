@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.android.MPIS.MPISActivity"
+     >
+
+    
+    <item
+        android:id="@+id/menu_item_patientInfo"
+        android:title="@string/patientInfo"
+       	android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/menu_item_doctor"
+        android:title="@string/doctorTools"
+        android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText" />
+    <item 
+        android:id="@+id/menu_item_appointments"
+        android:title="@string/appointment"
+        android:icon="@android:drawable/ic_menu_add"
+        android:showAsAction="ifRoom|withText"/>
+   <item 
+       android:id="@+id/menu_item_database"
+       android:title="@string/databaseManagement"
+       android:icon="@android:drawable/ic_menu_add"
+       android:showAsAction="ifRoom|withText"/>
+   <item 
+       android:id="@+id/menu_item_reporting"
+       android:title="@string/reporting"
+       android:icon="@android:drawable/ic_menu_add"
+       android:showAsAction="ifRoom|withText"/>
+
+</menu>

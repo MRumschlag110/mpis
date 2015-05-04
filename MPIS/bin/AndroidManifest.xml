@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.MPIS"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="21" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light" >
+        <activity
+            android:name=".MPISActivity"
+            android:label="@string/app_name" 
+            android:parentActivityName="com.android.MPIS.MPISActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.android.MPIS.MPISActivity" />
+        </activity>
+        <activity 
+            android:name=".PatientsChooserActivity"
+            android:label="@string/patientInfo">
+            
+        </activity>
+        <activity
+            android:name=".AppointmentsActivity"
+            android:label="@string/appointment">
+            
+        </activity>
+    </application>
+
+</manifest>

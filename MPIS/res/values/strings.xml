@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MPIS</string>
+   	<string name="patientInfo">Patient Info</string>
+   	<string name="appointment">Appointments</string>
+   	<string name="doctorTools">Doctor Tools</string>
+   	<string name="reporting">Reports</string>
+   	<string name="databaseManagement">Database Management</string>
+	<string name="home">Home</string>
+	
+	
+	
+	<string name="firstName">First Name:</string>
+	<string name="lastName">Last Name</string>
+	<string name="address">Street Address:</string>
+	<string name="city">City:</string>
+	<string name="state">State:</string>
+	<string name="gender">Gender:</string>
+	<string name="race">Race:</string>
+	<string name="weight">Weight:</string>
+	<string name="height">Height:</string>
+	<string name="insurance">Insurance:</string>
+	<string name="phoneNumber">Phone Number:</string>
+	
+	<string name="doctor">Doctor:</string>
+	<string name="patient">Patient:</string>
+	<string name="date">Date and Time:</string>
+	
+
+</resources>

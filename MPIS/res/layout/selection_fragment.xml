@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/patientInfoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/patientInfo"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/appointmentButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/appointment"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/doctorToolsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/doctorTools"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/reportingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/reporting"
+        android:textSize="20sp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/databaseManagementButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/databaseManagement"
+        android:textSize="20sp"
+        android:layout_weight="1"/>
+
+</LinearLayout>
