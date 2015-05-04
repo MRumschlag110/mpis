@@ -28,9 +28,9 @@ public class AppHelper {
 		return mAppointments;
 	}
 	
-	public Appointment getAppointment(UUID id){
+	public Appointment getAppointment(long id){
 		for (Appointment c : mAppointments){
-			if (c.getId().equals(id))
+			if (c.getId()==(id))
 				return c;
 		}
 		return null;

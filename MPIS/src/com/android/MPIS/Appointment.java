@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Appointment {
-	private UUID mId;
+	private long mId;
 	private String patientFName;
 	private String patientLName;
 	private Date mDate;
@@ -12,16 +12,16 @@ public class Appointment {
 	private String docLName;
 	
 	public Appointment(){
-		mId = UUID.randomUUID();
+		mId = UUID.randomUUID().timestamp();
 		mDate = new Date();
 		
 	}
 
-	public UUID getId() {
+	public long getId() {
 		return mId;
 	}
 
-	public void setId(UUID id) {
+	public void setId(long id) {
 		mId = id;
 	}
 
