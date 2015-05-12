@@ -27,9 +27,11 @@ public class MPISActivity extends ActionBarActivity {
         mPatientBtn.setOnClickListener(new View.OnClickListener(){
         	@Override
         	public void onClick(View v){
-        		Intent i = new Intent(MPISActivity.this, PatientsChooserActivity.class);
+        	
+        		Intent i = new Intent(MPISActivity.this, PatientChooser.class);
         		startActivity(i);
-        	}
+        		
+        		}
         });       
         mAppBtn = (Button)findViewById(R.id.appointmentButton);
         mAppBtn.setOnClickListener(new View.OnClickListener() {

@@ -1,8 +1,6 @@
 package com.android.MPIS;
 
 import java.util.ArrayList;
-import java.util.UUID;
-
 import android.content.Context;
 
 public class AppHelper {
@@ -30,7 +28,7 @@ public class AppHelper {
 	
 	public Appointment getAppointment(long id){
 		for (Appointment c : mAppointments){
-			if (c.getId()==(id))
+			if (c.getId()==id)
 				return c;
 		}
 		return null;

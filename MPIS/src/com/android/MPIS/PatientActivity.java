@@ -1,15 +1,27 @@
 package com.android.MPIS;
 
-import java.util.UUID;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
-public class PatientActivity extends SingleFragmentActivity {
+public class PatientActivity extends FragmentActivity {
 	@Override
-    protected Fragment createFragment() {
-        UUID patientId = (UUID)getIntent()
-            .getSerializableExtra(patientInfoFragment.EXTRA_PATIENT_ID);
-        return patientInfoFragment.newInstance(patientId);
-    }
+    public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_patient);
+	
+		FragmentManager fm = getSupportFragmentManager();
+		Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+		
+		if (fragment == null) {
+			fragment = new PatientFragment();
+			fm.beginTransaction()
+			.add(R.id.fragmentContainer, fragment)
+			.commit();
+		}
+	
+	}
 	
 }

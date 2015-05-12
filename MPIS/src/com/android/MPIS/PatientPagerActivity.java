@@ -1,7 +1,6 @@
 package com.android.MPIS;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import android.os.Bundle;
 
@@ -23,24 +22,24 @@ public class PatientPagerActivity extends FragmentActivity {
         mViewPager.setId(R.id.viewPager);
         setContentView(mViewPager);
 
-        final ArrayList<Patient> crimes = PatientHelper.get(this).getPatients();
-
+        final ArrayList<Patient> patients = PatientHelper.get(this).getPatients();
+        
         FragmentManager fm = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public int getCount() {
-                return crimes.size();
+                return patients.size();
             }
             @Override
             public Fragment getItem(int pos) {
-                UUID crimeId =  crimes.get(pos).getId();
+                long crimeId =  patients.get(pos).getId();
                 return patientInfoFragment.newInstance(crimeId);
             }
         }); 
 
-        UUID crimeId = (UUID)getIntent().getSerializableExtra(patientInfoFragment.EXTRA_PATIENT_ID);
-        for (int i = 0; i < crimes.size(); i++) {
-            if (crimes.get(i).getId().equals(crimeId)) {
+        long patientId = (long)getIntent().getLongExtra(patientInfoFragment.EXTRA_PATIENT_ID, 0);
+        for (int i = 0; i < patients.size(); i++) {
+            if (patients.get(i).getId() == patientId) {
                 mViewPager.setCurrentItem(i);
                 break;
             } 

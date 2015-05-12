@@ -1,9 +1,9 @@
 package com.android.MPIS;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import android.content.Context;
+
 
 public class PatientHelper {
 	private static PatientHelper sPatientHelper;
@@ -23,9 +23,9 @@ public class PatientHelper {
 		return mPatients;
 	}
 	
-	public Patient getPatients(UUID id){
+	public Patient getPatients(long id){
 		for (Patient c : mPatients){
-			if (c.getId().equals(id))
+			if (c.getId() == (id))
 				return c;
 		}
 		return null;

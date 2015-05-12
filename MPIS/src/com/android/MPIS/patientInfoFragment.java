@@ -1,6 +1,5 @@
 package com.android.MPIS;
 
-import java.util.UUID;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -32,7 +31,7 @@ public class patientInfoFragment extends Fragment{
 		
 		return v;
 	}
-	 public static patientInfoFragment newInstance(UUID patientId) {
+	 public static patientInfoFragment newInstance(long patientId) {
 	        Bundle args = new Bundle();
 	        args.putSerializable(EXTRA_PATIENT_ID, patientId);
 
