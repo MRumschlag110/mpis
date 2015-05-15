@@ -1,7 +1,12 @@
 package com.android.MPIS;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Appointment {
 	private long mId;
@@ -64,8 +69,24 @@ public class Appointment {
 	public void setDocLName(String docLName) {
 		this.docLName = docLName;
 	}
-	@Override
-	public String toString() {
-		return patientFName + " " + patientLName + "\n" + docFName + " " + docLName + "\n" + mDate;
-	}
+	
+	public static Patient fromJson(String s) {
+        return new Gson().fromJson(s, Patient.class);
+    }
+
+    public String toString() {
+        return new Gson().toJson(this);
+    }
+
+    public static Object fromJson(String jsonString, Type type) {
+        return new Gson().fromJson(jsonString, type);
+    }
+
+    public static ArrayList<Appointment> parseJsonListList(String jsonString) {
+        ArrayList<Appointment> appList = (ArrayList<Appointment>) fromJson(jsonString,
+                new TypeToken<ArrayList<Appointment>>() {
+                }.getType());
+        return appList;
+    }
+
 }

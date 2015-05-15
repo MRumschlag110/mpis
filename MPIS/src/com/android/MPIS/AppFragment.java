@@ -1,38 +1,33 @@
 package com.android.MPIS;
 
-import java.util.ArrayList;
-
-import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
 
-public class AppFragment extends ListFragment{
-	private ArrayList<Appointment> mAppointments;
+public class AppFragment extends Fragment {
+	public static final String EXTRA_APPOINTMENT_ID = "APPOINTMENT.APP_ID";
 	
-	public ArrayList<Appointment> getAppointments() {
-		return mAppointments;
-	}
+	 public static AppFragment newInstance(long appointmentId) {
+	        Bundle args = new Bundle();
+	        args.putSerializable(EXTRA_APPOINTMENT_ID, appointmentId);
 
-	public void setAppointments(ArrayList<Appointment> appointments) {
-		mAppointments = appointments;
-	}
+	        AppFragment fragment = new AppFragment();
+	        fragment.setArguments(args);
 
-	@Override
-	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		getActivity().setTitle(R.string.appointment);
-		mAppointments = AppHelper.get(getActivity()).getAppointments();
+	        return fragment;
+	    }
+	 
+	 public void onCreate(Bundle savedInstanceState){
+			super.onCreate(savedInstanceState);
+		}
+	 public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
+			View v = inflater.inflate(R.layout.list_item_app, parent, false);
+			
 	
-		ArrayAdapter<Appointment> adapter =
-				new ArrayAdapter<Appointment>(getActivity(), android.R.layout.simple_list_item_1, mAppointments);
-		setListAdapter(adapter);
-	}
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id){
-		Appointment app = (Appointment)(getListAdapter()).getItem(position);
-	}
-	
+			return v;
+		}
 }

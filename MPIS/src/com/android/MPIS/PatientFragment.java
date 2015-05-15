@@ -32,7 +32,6 @@ public class PatientFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = inflater.inflate(R.layout.fragment_patient, parent, false);
-		
 		mFirstName = (EditText)v.findViewById(R.id.FirstName);
 		mFirstName.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, int count){
@@ -242,10 +241,25 @@ public class PatientFragment extends Fragment {
 				
 			}
 		});
-		
+		Bundle bundle = this.getArguments();
+		setFields(bundle);
+	
 		
 		return v;
 	}
-	
+	public void setFields(Bundle bundle){
+		
+		mFirstName.setText(bundle.getString("firstName", ""));
+		mLastName.setText(bundle.getString("lastName", ""));
+		mGender.setText(bundle.getString("gender", ""));
+		mAddress.setText(bundle.getString("address", ""));
+		mCity.setText(bundle.getString("city", ""));
+		mRace.setText(bundle.getString("race", ""));
+		mInsurance.setText(bundle.getString("insurance", ""));
+		mState.setText(bundle.getString("state", ""));
+		mPhoneNumber.setText(bundle.getString("phoneNumber", ""));
+		mWeight.setText(bundle.getString("weight", ""));
+		mHeight.setText(bundle.getString("height", ""));
+	}
 
 }

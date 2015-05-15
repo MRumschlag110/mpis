@@ -26,6 +26,6 @@
 	<string name="doctor">Doctor:</string>
 	<string name="patient">Patient:</string>
 	<string name="date">Date and Time:</string>
-	
+	<string name="add_patient">Add Patient</string>	
 
 </resources>

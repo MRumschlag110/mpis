@@ -28,7 +28,7 @@ public class MPISActivity extends ActionBarActivity {
         	@Override
         	public void onClick(View v){
         	
-        		Intent i = new Intent(MPISActivity.this, PatientChooser.class);
+        		Intent i = new Intent(MPISActivity.this, PatientChooserActivity.class);
         		startActivity(i);
         		
         		}
