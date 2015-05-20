@@ -10,12 +10,6 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import com.bignerdranch.android.criminalintent.Patient;
-import com.bignerdranch.android.criminalintent.PatientActivity;
-import com.bignerdranch.android.criminalintent.PatientFragment;
-import com.bignerdranch.android.criminalintent.PatientLab;
-import com.bignerdranch.android.criminalintent.R;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -56,7 +50,7 @@ public class PatientChooserActivity extends ListActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.patient_listview);
+		setContentView(R.layout.listview);
 		patients = new Patient[mPatients.size()];
 		for(int i = 0; i < mPatients.size(); i++)
 		{
@@ -78,33 +72,21 @@ public class PatientChooserActivity extends ListActivity{
         return super.onCreateOptionsMenu(menu);
         
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_add_patient:
-                Patient patient = new Patient();
-                PatientLab.get(getActivity()).addCrime(crime);
-                Intent i = new Intent(getActivity(), PatientActivity.class);
-                i.putExtra(PatientFragment.EXTRA_CRIME_ID, crime.getId());
-                startActivityForResult(i, 0);
-                return true;
-            case R.id.menu_item_show_subtitle:
-            	if (getActivity().getActionBar().getSubtitle() == null) {
-                    getActivity().getActionBar().setSubtitle(R.string.subtitle);
-                    mSubtitleVisible = true;
-                    item.setTitle(R.string.hide_subtitle);
-            	}  else {
-            		getActivity().getActionBar().setSubtitle(null);
-            		 mSubtitleVisible = false;
-            		item.setTitle(R.string.show_subtitle);
-            	}
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        } 
-    }
+    
 
+        @Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        	switch (item.getItemId()) {
+        	case R.id.menu_item_add_patient:
+        		Intent intent = new Intent(PatientChooserActivity.this, PatientActivity.class);
+				startActivity(intent);
+        		return true;
+        	default:
+        	return super.onMenuItemSelected(featureId, item);
+		}
+	}
 
-        public class PatientAdapter extends ArrayAdapter<Patient> {
+		public class PatientAdapter extends ArrayAdapter<Patient> {
 
 	    LayoutInflater mInflater;
 	    List<Patient> list;
@@ -142,7 +124,7 @@ public class PatientChooserActivity extends ListActivity{
                     try {
                         // get URL content
                         String templateUrl = "http://%s:8080/CS/service/patient";
-                        String address = String.format(templateUrl, "192.168.173.1");
+                        String address = String.format(templateUrl, Constants.IP_ADDRESS);
                         Log.i("ipAddress", getGateway());
                         url = new URL(address);
                         URLConnection conn = url.openConnection();
@@ -186,6 +168,7 @@ public class PatientChooserActivity extends ListActivity{
             				
             				//create bundle to pass data along
             				Bundle bundle = new Bundle();
+            				bundle.putLong("id", patient.getId());
             				bundle.putString("firstName", patient.getPatientFName());
             				bundle.putString("lastName", patient.getPatientLName());
             				bundle.putString("address", patient.getAddress());

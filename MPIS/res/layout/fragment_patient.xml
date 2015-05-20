@@ -148,4 +148,12 @@
        	    android:inputType="text"
        	    />
     </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+       <Button
+           android:id="@+id/update_patient_btn"
+           android:text="Create Patient" />
+    </TableRow>
 </TableLayout>

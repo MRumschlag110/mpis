@@ -1,12 +1,21 @@
 package com.android.MPIS;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 //This will handle patient information as a controller
 public class PatientFragment extends Fragment {
@@ -22,7 +31,7 @@ public class PatientFragment extends Fragment {
 	private EditText mWeight;
 	private EditText mInsurance;
 	private EditText mPhoneNumber;
-	
+	private Button createBtn;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -241,6 +250,20 @@ public class PatientFragment extends Fragment {
 				
 			}
 		});
+		createBtn = (Button)v.findViewById(R.id.update_patient_btn);
+		createBtn.setOnClickListener(new OnClickListener() {
+			
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				createPatient(new Patient(0, "a", "b", "c", "d", "e", "f", "gender", "race", "weight", "height", "insurance"));
+				/*(long id, String patientFName, String patientLName,
+						String address, String city, String state, String phoneNumber,
+						String gender, String race, String weight, String height,
+						String insurance)*/
+			}
+		});
 		Bundle bundle = this.getArguments();
 		setFields(bundle);
 	
@@ -248,7 +271,7 @@ public class PatientFragment extends Fragment {
 		return v;
 	}
 	public void setFields(Bundle bundle){
-		
+		if (bundle.getLong("id", -1) != -1) {
 		mFirstName.setText(bundle.getString("firstName", ""));
 		mLastName.setText(bundle.getString("lastName", ""));
 		mGender.setText(bundle.getString("gender", ""));
@@ -260,6 +283,53 @@ public class PatientFragment extends Fragment {
 		mPhoneNumber.setText(bundle.getString("phoneNumber", ""));
 		mWeight.setText(bundle.getString("weight", ""));
 		mHeight.setText(bundle.getString("height", ""));
+		}
+	}
+	private void createPatient(Patient patient) {
+		AsyncTask<Patient, Integer, Integer> createPatientTask = new AsyncTask<Patient, Integer, Integer>() {
+			@Override
+			protected Integer doInBackground(Patient... params) {
+				Integer pId = 0;
+				String line;
+				StringBuffer jsonString = new StringBuffer();
+				try {
+					String templateUrl = "http://%s:8080/CS/service/patient";
+                    String address = String.format(templateUrl, Constants.IP_ADDRESS);
+                    
+					URL url = new URL(address);
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection();
+					connection.setRequestMethod("POST");
+					connection.setRequestProperty("Accept", "application/json");
+					connection.setRequestProperty("Content-Type",
+							"application/json; charset=UTF-8");
+					OutputStreamWriter writer = new OutputStreamWriter(
+							connection.getOutputStream());
+					
+					//Find how to grab a single object from params
+					writer.write(((Patient)params).toString());
+					writer.close();
+					BufferedReader br = new BufferedReader(
+							new InputStreamReader(connection.getInputStream()));
+					while ((line = br.readLine()) != null) {
+						jsonString.append(line);
+					}
+					br.close();
+					connection.disconnect();
+				} catch (Exception e) {
+					throw new RuntimeException(e.getMessage());
+				}
+				return pId;
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+			}
+		};
+		createPatientTask.execute(patient);
+
 	}
 
 }

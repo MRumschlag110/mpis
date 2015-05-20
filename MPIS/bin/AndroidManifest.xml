@@ -43,6 +43,10 @@
             android:label="@string/patient">
             
         </activity>
+        <activity
+            android:name=".AppointmentActivity"
+            android:label="@string/appointment">
+        </activity>
     </application>
 
 </manifest>

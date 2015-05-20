@@ -37,7 +37,7 @@ public class MPISActivity extends ActionBarActivity {
         mAppBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(MPISActivity.this, AppointmentsActivity.class);
+				Intent i = new Intent(MPISActivity.this, AppChooserActivity.class);
 				startActivity(i);
 			}
 		});

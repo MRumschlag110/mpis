@@ -1,6 +1,8 @@
 package com.android.MPIS;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -10,15 +12,23 @@ import com.google.gson.reflect.TypeToken;
 
 public class Appointment {
 	private long mId;
-	private String patientFName;
-	private String patientLName;
-	private Date mDate;
-	private String docFName;
-	private String docLName;
+	private String mPatientFName;
+	private String mPatientLName;
+	private String mDate;
+	private String mDocFName;
+	private String mDocLName;
+	
+	public String getDate() {
+		return mDate;
+	}
+
+	
 	
 	public Appointment(){
-		mId = UUID.randomUUID().timestamp();
-		mDate = new Date();
+	//	mId = UUID.randomUUID().timestamp();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		mDate = df.format(new Date()).toString();
+		
 		
 	}
 
@@ -31,47 +41,47 @@ public class Appointment {
 	}
 
 	public String getPatientFName() {
-		return patientFName;
+		return mPatientFName;
 	}
 
 	public void setPatientFName(String patientFName) {
-		this.patientFName = patientFName;
+		this.mPatientFName = patientFName;
 	}
 
 	public String getPatientLName() {
-		return patientLName;
+		return mPatientLName;
 	}
 
 	public void setPatientLName(String patientLName) {
-		this.patientLName = patientLName;
+		this.mPatientLName = patientLName;
 	}
 
-	public Date getDate() {
+	/*public Date getDate() {
 		return mDate;
 	}
-
-	public void setDate(Date date) {
+*/
+	public void setDate(String date) {
 		mDate = date;
 	}
 
 	public String getDocFName() {
-		return docFName;
+		return mDocFName;
 	}
 
 	public void setDocFName(String docFName) {
-		this.docFName = docFName;
+		this.mDocFName = docFName;
 	}
 
 	public String getDocLName() {
-		return docLName;
+		return mDocLName;
 	}
 
 	public void setDocLName(String docLName) {
-		this.docLName = docLName;
+		this.mDocLName = docLName;
 	}
 	
-	public static Patient fromJson(String s) {
-        return new Gson().fromJson(s, Patient.class);
+	public static Appointment fromJson(String s) {
+        return new Gson().fromJson(s, Appointment.class);
     }
 
     public String toString() {
@@ -89,4 +99,15 @@ public class Appointment {
         return appList;
     }
 
+    public Appointment(long id, String mPatientFName, String mPatientLName,
+			String mDate, String mDocFName, String mDocLName) {
+		super();
+		mId = id;
+		this.mPatientFName = mPatientFName;
+		this.mPatientLName = mPatientLName;
+		this.mDate = mDate;
+		this.mDocFName = mDocFName;
+		this.mDocLName = mDocLName;
+		
+		}
 }

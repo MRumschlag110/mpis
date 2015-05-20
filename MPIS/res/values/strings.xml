@@ -23,7 +23,8 @@
 	<string name="insurance">Insurance:</string>
 	<string name="phoneNumber">Phone Number:</string>
 	
-	<string name="doctor">Doctor:</string>
+	<string name="doctorLName">Doctor\'s Last Name: </string>
+	<string name="doctorFName">Doctor\'s First Name: </string>
 	<string name="patient">Patient:</string>
 	<string name="date">Date and Time:</string>
 	<string name="add_patient">Add Patient</string>	

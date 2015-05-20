@@ -1,42 +1,3 @@
-/*package com.android.MPIS;
-
-import java.util.ArrayList;
-
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-public class AppChooserActivity extends ListFragment{
-	private ArrayList<Appointment> mAppointments;
-	
-	public ArrayList<Appointment> getAppointments() {
-		return mAppointments;
-	}
-
-	public void setAppointments(ArrayList<Appointment> appointments) {
-		mAppointments = appointments;
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		getActivity().setTitle(R.string.appointment);
-		mAppointments = AppHelper.get(getActivity()).getAppointments();
-	
-		ArrayAdapter<Appointment> adapter =
-				new ArrayAdapter<Appointment>(getActivity(), android.R.layout.simple_list_item_1, mAppointments);
-		setListAdapter(adapter);
-	}
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id){
-		Appointment app = (Appointment)(getListAdapter()).getItem(position);
-	}
-	
-}
-*/
 package com.android.MPIS;
 
 import java.io.BufferedReader;
@@ -59,6 +20,9 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -67,7 +31,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import android.app.ActionBar;
 
 
 public class AppChooserActivity extends ListActivity{
@@ -85,10 +49,8 @@ public class AppChooserActivity extends ListActivity{
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);				
-		
-		
-		setContentView(R.layout.patient_listview);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.listview);
 		appointments = new Appointment[mAppointments.size()];
 		for(int i = 0; i < mAppointments.size(); i++)
 		{
@@ -101,9 +63,16 @@ public class AppChooserActivity extends ListActivity{
 		
 	}
 	
-	 
-
-
+	
+    /*public boolean onCreateOptionsMenu(Menu menu) {
+      
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.patient_options, menu);
+        MenuItem addPatient = menu.findItem(R.id.menu_item_add_patient);
+        return super.onCreateOptionsMenu(menu);
+        
+    }
+*/
         public class AppAdapter extends ArrayAdapter<Appointment> {
 
 	    LayoutInflater mInflater;
@@ -122,11 +91,16 @@ public class AppChooserActivity extends ListActivity{
 	        TextView lastName = (TextView)row.findViewById(R.id.app_list_item_last_name);
 	        firstName.setText(a.getPatientFName());
 	        lastName.setText(a.getPatientLName());
+	        TextView docFName = (TextView)row.findViewById(R.id.app_list_item_doc_first_name);
+	        docFName.setText(a.getDocFName());
+	        TextView docLName = (TextView)row.findViewById(R.id.app_list_item_doc_last_name);
+	        docLName.setText(a.getDocLName());
+	        TextView date = (TextView)row.findViewById(R.id.app_list_item_date);
+	        date.setText(a.getDate());
 	        Log.i("ProfileID","Pre Retrieval");
 	        Log.i("ProfileID",String.valueOf(a.getId()));
 	        parent.setTag(a.getId());
 	      
-	           
 	        return row;
 	    }
 	}
@@ -141,8 +115,9 @@ public class AppChooserActivity extends ListActivity{
                     ArrayList<Appointment> appList = new ArrayList<Appointment>();
                     try {
                         // get URL content
+                    	//template URL needs changed still
                         String templateUrl = "http://%s:8080/CS/service/appointment";
-                        String address = String.format(templateUrl, "192.168.173.1");
+                        String address = String.format(templateUrl, Constants.IP_ADDRESS);
                         Log.i("ipAddress", getGateway());
                         url = new URL(address);
                         URLConnection conn = url.openConnection();
@@ -170,7 +145,7 @@ public class AppChooserActivity extends ListActivity{
                     super.onPostExecute(result);
 
 
-            		setListAdapter(new AppAdapter(AppChooserActivity.this, android.R.layout.simple_list_item_1, R.id.app_list_item_first_name, appointments));
+            		setListAdapter(new AppAdapter(AppChooserActivity.this, android.R.layout.list_content, R.layout.list_item_app, appointments));
             		
                     ListView lv = getListView();
                     lv.setOnItemClickListener(new OnItemClickListener() {
@@ -182,8 +157,19 @@ public class AppChooserActivity extends ListActivity{
             				Log.i("ID Value", String.valueOf(id));
             				int tempID = (int)id;
             				intent.putExtra("profileListID", tempID);
+            				Appointment appointment = (Appointment)parent.getItemAtPosition(position);
+            				
+            				//create bundle to pass data along
+            				Bundle bundle = new Bundle();
+            				bundle.putString("firstName", appointment.getPatientFName());
+            				bundle.putString("lastName", appointment.getPatientLName());
+            				bundle.putString("address", appointment.getDocFName());
+            				bundle.putString("city", appointment.getDocLName());
+            				bundle.putString("state", appointment.getDate());
+            				intent.putExtras(bundle);
             				startActivity(intent);				
-            		}});   
+            				
+                       		}});   
 
                 }
 
@@ -194,5 +180,4 @@ public class AppChooserActivity extends ListActivity{
         public String getGateway() { DhcpInfo d; WifiManager wifii; wifii= (WifiManager) getSystemService(Context.WIFI_SERVICE); d=wifii.getDhcpInfo(); int i = d.gateway; String gateway = ((i >> 24 ) & 0xFF ) + "." + ((i >> 16 ) & 0xFF) + "." + ((i >> 8 ) & 0xFF) + "." + ( i & 0xFF) ; return gateway;
         
         	}
-        
 }
